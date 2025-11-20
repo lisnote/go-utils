@@ -7,7 +7,7 @@ import (
 	"net"
 	"os"
 	"speed-test/config"
-	"speed-test/version"
+	"libs/version"
 	"sync"
 	"sync/atomic"
 	"time"
