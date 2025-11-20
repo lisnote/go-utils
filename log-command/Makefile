@@ -20,3 +20,17 @@ build:
 		GOARCH=$$arch \
 		go build -o ./dist/$$out; \
 	done
+
+# 压缩dist
+.PHONY: compress
+compress:
+	cd dist; \
+	for os_arch in $(os-archs); do \
+		os=$$(echo $$os_arch | cut -d: -f1); \
+		arch=$$(echo $$os_arch | cut -d: -f2); \
+		out="$(module)-$$os-$$arch"; \
+		ext="" \
+		[ "$$os" = "windows" ] && ext=".exe"; \
+		echo "Compressing $$out"; \
+		tar -czf $$out.tar.gz $$out$$ext; \
+	done
