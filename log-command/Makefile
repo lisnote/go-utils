@@ -6,19 +6,16 @@ os-archs ?= \
 	linux:arm64 \
 	windows:amd64 \
 	windows:arm64
+module = $(shell go list -m)
 
 .PHONY: build
 build:
-	@module="$$(go list -m)"; \
-	echo "$$module"; \
 	for os_arch in $(os-archs); do \
 		os=$$(echo $$os_arch | cut -d: -f1); \
 		arch=$$(echo $$os_arch | cut -d: -f2); \
-		out="$$module-$$os-$$arch"; \
+		out="$(module)-$$os-$$arch"; \
+		[ "$$os" = "windows" ] && out="$$out.exe"; \
 		echo "Building $$out"; \
-		if [ "$$os" = "windows" ]; then \
-			out="$$out.exe"; \
-		fi; \
 		GOOS=$$os \
 		GOARCH=$$arch \
 		go build -o ./dist/$$out; \
