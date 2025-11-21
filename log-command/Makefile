@@ -16,7 +16,6 @@ build:
 		out="$(module)-$$os-$$arch"; \
 		[ "$$os" = "windows" ] && out="$$out.exe"; \
 		echo "Building $$out"; \
-		GOOS=$$os \
-		GOARCH=$$arch \
-		go build -o ./dist/$$out; \
+		CGO_ENABLED=0 GOOS=$$os GOARCH=$$arch \
+			go build -trimpath -ldflags "-s -w" -o ./dist/$$out; \
 	done

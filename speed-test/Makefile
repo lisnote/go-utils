@@ -17,8 +17,8 @@ build:
 		ext="" \
 		[ "$$os" = "windows" ] && ext=".exe"; \
 		echo "Building $$out"; \
-		GOOS=$$os \
-		GOARCH=$$arch \
-		go build -o ./dist/$$out-server$$ext ./server/main.go; \
-		go build -o ./dist/$$out-client$$ext ./client/main.go; \
+		CGO_ENABLED=0 GOOS=$$os GOARCH=$$arch \
+			go build -trimpath -ldflags "-s -w" -o ./dist/$$out-server$$ext ./server/main.go; \
+		CGO_ENABLED=0 GOOS=$$os GOARCH=$$arch \
+			go build -trimpath -ldflags "-s -w" -o ./dist/$$out-client$$ext ./client/main.go; \
 	done
