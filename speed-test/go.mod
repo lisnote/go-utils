@@ -1,5 +1,7 @@
 module speed-test
 
+go 1.25.1
+
 require (
 	libs v0.0.0
 )
@@ -7,5 +9,3 @@ require (
 replace (
 	libs => ../libs
 )
-
-go 1.25.1
