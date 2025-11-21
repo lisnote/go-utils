@@ -22,18 +22,3 @@ build:
 		go build -o ./dist/$$out-server$$ext ./server/main.go; \
 		go build -o ./dist/$$out-client$$ext ./client/main.go; \
 	done
-
-# 压缩dist
-.PHONY: compress
-compress:
-	cd dist; \
-	for os_arch in $(os-archs); do \
-		os=$$(echo $$os_arch | cut -d: -f1); \
-		arch=$$(echo $$os_arch | cut -d: -f2); \
-		out="$(module)-$$os-$$arch"; \
-		ext="" \
-		[ "$$os" = "windows" ] && ext=".exe"; \
-		echo "Compressing $$out"; \
-		tar -czf $$out-server.tar.gz $$out-server$$ext; \
-		tar -czf $$out-client.tar.gz $$out-client$$ext; \
-	done
