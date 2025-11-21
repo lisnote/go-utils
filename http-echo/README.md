@@ -11,8 +11,7 @@ The server listens on a specified address and port. When it receives a request, 
 Run the server and specify the address and port to listen on.
 
 ```bash
-# Example: Listen on all interfaces on port 8080
-http-echo.exe 0.0.0.0:8080
+http-echo.exe 127.0.0.1:8080
 ```
 
 Once the server is running, you can send any HTTP request to it, and it will respond with the request details.
@@ -20,28 +19,23 @@ Once the server is running, you can send any HTTP request to it, and it will res
 ### Example Request
 
 ```bash
-curl -X POST "http://localhost:8080/test?param1=value1" -H "Content-Type: application/json" -d '{"key": "value"}'
+curl -X POST "http://127.0.0.1:8080/test?param1=value1" -H "Content-Type: application/json" -d '{"key": "value"}'
 ```
 
 ### Example Response
 
 ```json
 {
-  "data": {
-    "key": "value"
-  },
+  "data": { "key": "value" },
   "headers": {
     "Accept": ["*/*"],
-    "Content-Length": ["15"],
+    "Content-Length": ["16"],
     "Content-Type": ["application/json"],
-    "User-Agent": ["curl/7.81.0"]
+    "User-Agent": ["curl/8.10.1"]
   },
-  "host": "localhost:8080",
-  "ipaddress": "::1",
+  "host": "127.0.0.1:8080",
   "method": "POST",
   "path": "/test",
-  "query": {
-    "param1": ["value1"]
-  }
+  "query": { "param1": ["value1"] }
 }
 ```
